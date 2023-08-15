@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-commerce Website</title>
+<style>
+  .ayush{
+    border-radius: 100%;
+    position: relative;
+    height: 50%;
+    width: 50%;
+  }
+  .product{
+    background-color: aqua;
+    border-radius: 100%;
+    position: relative;
+    height: 50%;
+    width: 50%;
+
+
+  }
+  body{
+    background-color: aquamarine;
+  }
+  button{
+    border-radius: 30% ;
+    background-color: brown;
+  }
+
+</style>
+</head>
+<body>
+  <header>
+    <h1>E-commerce Website</h1>
+    <div id="cart-icon">Cart (0)</div>
+  </header>
+  <div class="container">
+    <div class="product">
+      <img class = "product" src="phones.jpeg" alt="Product 1">
+      <h2>Product 1</h2>
+      <p>Price: $10.00</p>
+      <button onclick="addToCart('Product 1', 10.00)">Add to Cart</button>
+    </div>
+    <div class="product" style="background-color: yellow;">
+      <img class="ayush"src="iphone.jpeg" alt="Product 2">
+      <h2>Product 2</h2>
+      <p>Price: $15.00</p>
+      <button onclick="addToCart('Product 2', 15.00)">Add to Cart</button>
+    </div>
+    <!-- Add more product divs here -->
+  </div>
+  <div class="cart">
+    <h2 class="cart-header">Cart</h2>
+    <div class="cart-items" id="cart-items">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="cart-total" id="cart-total">
+      Total: $0.00
+    </div>
+    <button class="checkout-button" onclick="checkout()">Checkout</button>
+  </div>
+
+  <script>
+    const cartItems = [];
+    let total = 0;
+
+    function updateCartIcon() {
+      const cartIcon = document.getElementById('cart-icon');
+      cartIcon.textContent = `Cart (${cartItems.length})`;
+    }
+
+    function addToCart(productName, price) {
+      cartItems.push({ name: productName, price: price });
+      total += price;
+
+      updateCartIcon();
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = '';
+
+      cartItems.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <span>${item.name}</span>
+          <span>$${item.price.toFixed(2)}</span>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartItemsDiv.appendChild(cartItem);
+      });
+
+      const cartTotal = document.getElementById('cart-total');
+      cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    function removeFromCart(index) {
+      total -= cartItems[index].price;
+      cartItems.splice(index, 1);
+
+      updateCartIcon();
+      updateCart();
+    }
+
+    function checkout() {
+      alert('TO DO THIS WE NEED MORE FUNCTIONS LIKE PAYMENT GATEWAY ETC');
+    }
+  </script>
+</body>
+</html>
